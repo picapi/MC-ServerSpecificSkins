@@ -40,16 +40,18 @@ public class ServerSettingsScreenMixin extends Screen {
     @Inject(at = @At("TAIL"), method = "init")
     private void init(CallbackInfo info) {
         ConfigManager.Config config = ConfigManager.getConfig();
-        setSkinButton = new ButtonWidget((3*this.width/20), (6*this.height/10), (5*this.width/20), 20 , Text.translatable("serverspecificskins.addServer.skinConfig.setSkin"),(button) -> {
+        setSkinButton = new ButtonWidget(this.width / 2 - 160, this.height / 4 + 72 + 20, 120, 20 , Text.translatable("serverspecificskins.addServer.skinConfig.setSkin"),(button) -> {
             try {
                 prospectiveSkin = ServerSpecificSkinsClient.selectSkin();
-                clearSkinButton.active = true;
-                skinForRemoval = false;
+                if(prospectiveSkin != null) {
+                    clearSkinButton.active = true;
+                    skinForRemoval = false;
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
-        clearSkinButton = new ButtonWidget((12*this.width/20),(6*this.height/10),(5*this.width/20),20, Text.translatable("serverspecificskins.addServer.skinConfig.clearSkin"),(button) -> {
+        clearSkinButton = new ButtonWidget(this.width/2 + 40,this.height / 4 + 72 + 20,120,20, Text.translatable("serverspecificskins.addServer.skinConfig.clearSkin"),(button) -> {
             skinForRemoval = true;
             clearSkinButton.active = false;
         });
@@ -58,7 +60,7 @@ public class ServerSettingsScreenMixin extends Screen {
                 .values(ServerSkinSettingType.values())
                 .initially(config.getSkinTypeForAddress(ServerAddressUtilities.stringify(this.server)))
                 .build(
-                (17*this.width/40),(6*this.height/10),(3*this.width/20),20, Text.translatable("serverspecificskins.addServer.skinType")
+                        this.width / 2 - 25, this.height / 4 + 72 + 20,70,20, Text.translatable("serverspecificskins.addServer.skinType")
         );
         this.addDrawableChild(setSkinButton);
         this.addDrawableChild(clearSkinButton);
