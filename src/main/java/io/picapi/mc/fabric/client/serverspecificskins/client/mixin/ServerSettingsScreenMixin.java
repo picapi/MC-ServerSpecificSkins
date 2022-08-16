@@ -60,7 +60,7 @@ public class ServerSettingsScreenMixin extends Screen {
                 .values(ServerSkinSettingType.values())
                 .initially(config.getSkinTypeForAddress(ServerAddressUtilities.stringify(this.server)))
                 .build(
-                        this.width / 2 - 25, this.height / 4 + 72 + 20,70,20, Text.translatable("serverspecificskins.addServer.skinType")
+                        this.width / 2 - 35, this.height / 4 + 72 + 20,70,20, Text.translatable("serverspecificskins.addServer.skinType")
         );
         this.addDrawableChild(setSkinButton);
         this.addDrawableChild(clearSkinButton);
