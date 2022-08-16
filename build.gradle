@@ -27,8 +27,6 @@ dependencies {
     include group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5.10'
     implementation group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5.13'
 
-    include 'org.lwjgl:lwjgl-tinyfd:3.3.1'
-    implementation 'org.lwjgl:lwjgl-tinyfd:3.3.1'
 
 }
 
