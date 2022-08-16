@@ -1,0 +1,9 @@
+{
+  "serverspecificskins.addServer.skinConfig.clearSkin": "Remove Server Skin",
+  "serverspecificskins.addServer.skinConfig.setSkin": "Set Server Skin",
+  "serverspecificskins.connecting.checkingSkin": "Checking current skin...",
+  "serverspecificskins.connecting.changingSkin": "Setting skin...",
+  "serverspecificskins.skinType.CLASSIC": "Classic",
+  "serverspecificskins.skinType.SLIM": "Slim",
+  "serverspecificskins.addServer.skinType": "Type"
+}

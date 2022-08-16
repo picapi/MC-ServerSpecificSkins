@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "serverspecificskins",
+  "version": "${version}",
+  "name": "Server Specific Skins",
+  "description": "Allows configuration of specific skins for each server you join, which automatically apply in the background when joining a server.",
+  "authors": [
+    "picapi_"
+  ],
+  "contact": {
+    "issues": "https://github.com/picapi/MC-ServerSpecificSkins/issues",
+    "sources": "https://github.com/picapi/MC-ServerSpecificSkins.git"
+  },
+  "license": "MIT",
+  "icon": "assets/serverspecificskins/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "io.picapi.mc.fabric.client.serverspecificskins.client.ServerSpecificSkinsClient"
+    ],
+    "main": [
+      "io.picapi.mc.fabric.client.serverspecificskins.ServerSpecificSkins"
+    ]
+  },
+  "mixins": [
+    "serverspecificskins.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric": "*",
+    "minecraft": "1.19.2"
+  }
+}
