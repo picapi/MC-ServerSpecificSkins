@@ -1,9 +1,9 @@
-package io.picapi.mc.fabric.client.serverspecificskins.client;
+package io.github.picapi.mc.fabric.client.serverspecificskins.client;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import io.picapi.mc.fabric.client.serverspecificskins.ServerSkinSettingType;
-import io.picapi.mc.fabric.client.serverspecificskins.ServerSpecificSkins;
+import io.github.picapi.mc.fabric.client.serverspecificskins.ServerSkinSettingType;
+import io.github.picapi.mc.fabric.client.serverspecificskins.ServerSpecificSkins;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.Session;
 import org.apache.commons.codec.digest.DigestUtils;

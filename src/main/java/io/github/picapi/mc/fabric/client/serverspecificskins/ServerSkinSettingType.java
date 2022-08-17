@@ -1,4 +1,4 @@
-package io.picapi.mc.fabric.client.serverspecificskins;
+package io.github.picapi.mc.fabric.client.serverspecificskins;
 
 import net.minecraft.text.Text;
 

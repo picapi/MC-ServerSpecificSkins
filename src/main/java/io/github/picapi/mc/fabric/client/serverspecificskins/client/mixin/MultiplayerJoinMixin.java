@@ -1,14 +1,14 @@
-package io.picapi.mc.fabric.client.serverspecificskins.client.mixin;
+package io.github.picapi.mc.fabric.client.serverspecificskins.client.mixin;
 
-import io.picapi.mc.fabric.client.serverspecificskins.ConfigManager;
-import io.picapi.mc.fabric.client.serverspecificskins.ServerAddressUtilities;
+import io.github.picapi.mc.fabric.client.serverspecificskins.ConfigManager;
+import io.github.picapi.mc.fabric.client.serverspecificskins.ServerAddressUtilities;
 import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.network.ServerAddress;
 import net.minecraft.text.Text;
-import io.picapi.mc.fabric.client.serverspecificskins.ServerSkinSettingType;
-import io.picapi.mc.fabric.client.serverspecificskins.ServerSpecificSkins;
-import io.picapi.mc.fabric.client.serverspecificskins.client.ServerSpecificSkinsClient;
-import io.picapi.mc.fabric.client.serverspecificskins.client.SkinChanger;
+import io.github.picapi.mc.fabric.client.serverspecificskins.ServerSkinSettingType;
+import io.github.picapi.mc.fabric.client.serverspecificskins.ServerSpecificSkins;
+import io.github.picapi.mc.fabric.client.serverspecificskins.client.ServerSpecificSkinsClient;
+import io.github.picapi.mc.fabric.client.serverspecificskins.client.SkinChanger;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

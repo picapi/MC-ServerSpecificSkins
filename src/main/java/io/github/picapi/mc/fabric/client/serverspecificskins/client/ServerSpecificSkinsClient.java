@@ -1,4 +1,4 @@
-package io.picapi.mc.fabric.client.serverspecificskins.client;
+package io.github.picapi.mc.fabric.client.serverspecificskins.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;

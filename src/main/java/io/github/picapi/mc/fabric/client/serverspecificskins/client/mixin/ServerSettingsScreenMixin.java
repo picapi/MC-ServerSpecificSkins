@@ -1,14 +1,14 @@
-package io.picapi.mc.fabric.client.serverspecificskins.client.mixin;
+package io.github.picapi.mc.fabric.client.serverspecificskins.client.mixin;
 
-import io.picapi.mc.fabric.client.serverspecificskins.ConfigManager;
-import io.picapi.mc.fabric.client.serverspecificskins.ServerAddressUtilities;
+import io.github.picapi.mc.fabric.client.serverspecificskins.ConfigManager;
+import io.github.picapi.mc.fabric.client.serverspecificskins.ServerAddressUtilities;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.CyclingButtonWidget;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.text.Text;
-import io.picapi.mc.fabric.client.serverspecificskins.ServerSkinSettingType;
-import io.picapi.mc.fabric.client.serverspecificskins.client.ServerSpecificSkinsClient;
+import io.github.picapi.mc.fabric.client.serverspecificskins.ServerSkinSettingType;
+import io.github.picapi.mc.fabric.client.serverspecificskins.client.ServerSpecificSkinsClient;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,7 +18,6 @@ import net.minecraft.client.gui.screen.AddServerScreen;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Mixin(AddServerScreen.class)

@@ -17,10 +17,10 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "io.picapi.mc.fabric.client.serverspecificskins.client.ServerSpecificSkinsClient"
+      "io.github.picapi.mc.fabric.client.serverspecificskins.client.ServerSpecificSkinsClient"
     ],
     "main": [
-      "io.picapi.mc.fabric.client.serverspecificskins.ServerSpecificSkins"
+      "io.github.picapi.mc.fabric.client.serverspecificskins.ServerSpecificSkins"
     ]
   },
   "mixins": [
