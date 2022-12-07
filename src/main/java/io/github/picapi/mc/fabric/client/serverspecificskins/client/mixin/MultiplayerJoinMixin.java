@@ -54,8 +54,7 @@ public abstract class MultiplayerJoinMixin  {
             if(!(Arrays.equals(new_hash,SkinChanger.getCurrentSkinSHA256Hash())) || !expectedType.equals(skinInfo.getSkinType())  ) {
                 ServerSpecificSkins.LOGGER.info("Hash differs - applying skin");
                 ((ConnectScreenInvoker)field_2416).invokeSetStatus(Text.translatable("serverspecificskins.connecting.changingSkin"));
-                ServerSkinSettingType skin_type = skinInfo.getSkinType();
-                if(SkinChanger.setSkin(skin_file, skin_type)) {
+                if(SkinChanger.setSkin(skin_file, expectedType)) {
                     // Look to recalculate hash...
                     var new_skin_web = SkinChanger.getCurrentSkin();
                     ServerSpecificSkinsClient.saveSkinForServer(field_33737, new_skin_web.getSkinData());
