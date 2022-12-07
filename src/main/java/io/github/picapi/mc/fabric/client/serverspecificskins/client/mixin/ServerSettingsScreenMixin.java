@@ -2,6 +2,7 @@ package io.github.picapi.mc.fabric.client.serverspecificskins.client.mixin;
 
 import io.github.picapi.mc.fabric.client.serverspecificskins.ConfigManager;
 import io.github.picapi.mc.fabric.client.serverspecificskins.ServerAddressUtilities;
+import io.github.picapi.mc.fabric.client.serverspecificskins.client.ServerSkinManager;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.CyclingButtonWidget;
@@ -17,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import net.minecraft.client.gui.screen.AddServerScreen;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.io.File;
 import java.io.IOException;
 
 @Mixin(AddServerScreen.class)
@@ -29,38 +29,18 @@ public class ServerSettingsScreenMixin extends Screen {
         super(title);
     }
 
-    ButtonWidget clearSkinButton;
+    ServerSkinManager manager;
     ButtonWidget setSkinButton;
-
+    ButtonWidget clearSkinButton;
     CyclingButtonWidget<ServerSkinSettingType> skinTypeButton;
-    File prospectiveSkin;
-    boolean skinForRemoval = false;
 
     @Inject(at = @At("TAIL"), method = "init")
     private void init(CallbackInfo info) {
-        ConfigManager.Config config = ConfigManager.getConfig();
-        setSkinButton = new ButtonWidget(this.width / 2 - 160, this.height / 4 + 72 + 20, 120, 20 , Text.translatable("serverspecificskins.addServer.skinConfig.setSkin"),(button) -> {
-            try {
-                prospectiveSkin = ServerSpecificSkinsClient.selectSkin();
-                if(prospectiveSkin != null) {
-                    clearSkinButton.active = true;
-                    skinForRemoval = false;
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        clearSkinButton = new ButtonWidget(this.width/2 + 40,this.height / 4 + 72 + 20,120,20, Text.translatable("serverspecificskins.addServer.skinConfig.clearSkin"),(button) -> {
-            skinForRemoval = true;
-            clearSkinButton.active = false;
-        });
+        manager = new ServerSkinManager(this.server);
+        setSkinButton = manager.buildSetSkinButton(this.width / 2 - 160, this.height / 4 + 72 + 20, 120, 20);
+        clearSkinButton = manager.buildClearSkinButton(this.width/2 + 40,this.height / 4 + 72 + 20,120, 20);
+        skinTypeButton = manager.buildSkinTypeButton(this.width / 2 - 35, this.height / 4 + 72 + 20,70, 20);
         clearSkinButton.active = ServerSpecificSkinsClient.getFileForAddress(this.server.address).isFile();
-        skinTypeButton = CyclingButtonWidget.builder(ServerSkinSettingType::getText)
-                .values(ServerSkinSettingType.values())
-                .initially(config.getSkinTypeForAddress(ServerAddressUtilities.stringify(this.server)))
-                .build(
-                        this.width / 2 - 35, this.height / 4 + 72 + 20,70,20, Text.translatable("serverspecificskins.addServer.skinType")
-        );
         this.addDrawableChild(setSkinButton);
         this.addDrawableChild(clearSkinButton);
         this.addDrawableChild(skinTypeButton);
@@ -68,11 +48,11 @@ public class ServerSettingsScreenMixin extends Screen {
 
     @Inject(at = @At("TAIL"), method = "addAndClose")
     private void saveSkin(CallbackInfo info) throws IOException {
-        if (skinForRemoval){
+        if (manager.shouldClearSkin()){
             ServerSpecificSkinsClient.deleteSkinForServer(this.server);
         }
-        else if (prospectiveSkin != null) {
-            ServerSpecificSkinsClient.saveSkinForServer(this.server, prospectiveSkin);
+        else if (manager.getSelectedSkin() != null) {
+            ServerSpecificSkinsClient.saveSkinForServer(this.server, manager.getSelectedSkin());
         }
         ConfigManager.Config config = ConfigManager.getConfig();
         config.setSkinTypeForAddress(ServerAddressUtilities.stringify(this.server),skinTypeButton.getValue());
