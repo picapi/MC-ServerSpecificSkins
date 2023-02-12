@@ -69,7 +69,14 @@ jar {
     from("LICENSE") {
         rename { "${it}_${project.archivesBaseName}" }
     }
+
+    manifest {
+        attributes(
+                'Main-Class': "io.github.picapi.mc.fabric.client.serverspecificskins.Installer"
+        )
+    }
 }
+
 
 shadowJar {
     configurations = [project.configurations.shadow]
