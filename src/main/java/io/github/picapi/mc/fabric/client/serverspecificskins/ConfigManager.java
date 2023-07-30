@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +46,7 @@ public class ConfigManager {
     }
 
     public static void saveConfig(Config new_config) throws IOException {
+        Files.createDirectories(defaultConfigPath);
         FileWriter writer = new FileWriter(defaultConfigPath.toFile());
         gson.toJson(new_config, writer);
         writer.close();
