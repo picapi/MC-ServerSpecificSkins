@@ -66,7 +66,6 @@ public class ServerSettingsScreenMixin extends Screen {
             ServerSpecificSkinsClient.deleteSkinForServer(this.server);
         }
         if(manager.get_previous_info() != null){
-            System.out.println(manager.get_previous_info().toString());
             ServerSpecificSkinsClient.deleteSkinForServer(manager.get_previous_info());
             manager.clear_previous_info();
         }
