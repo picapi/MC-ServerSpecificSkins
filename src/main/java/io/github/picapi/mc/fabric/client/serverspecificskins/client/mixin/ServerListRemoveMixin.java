@@ -9,11 +9,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import java.io.IOException;
+
 @Mixin(ServerList.class)
 public class ServerListRemoveMixin {
 
     @Inject(at = @At(value="TAIL"), method = "remove", locals = LocalCapture.CAPTURE_FAILEXCEPTION)
-    private void init(ServerInfo sInfo, CallbackInfo info) {
+    private void init(ServerInfo sInfo, CallbackInfo info) throws IOException {
         ServerSpecificSkinsClient.deleteSkinForServer(sInfo);
     }
 
