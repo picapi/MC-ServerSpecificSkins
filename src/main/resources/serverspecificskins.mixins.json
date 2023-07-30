@@ -7,7 +7,7 @@
   ],
   "client": [
     "ConnectScreenInvoker",
-    "MultiplayerJoinMixin",
+    "ConnectScreenThreadMixin",
     "ServerListRemoveMixin",
     "ServerSettingsScreenMixin"
   ],
