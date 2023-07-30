@@ -1,5 +1,6 @@
 package io.github.picapi.mc.fabric.client.serverspecificskins.client;
 
+import io.github.picapi.mc.fabric.client.serverspecificskins.ServerAddressUtilities;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -46,37 +47,29 @@ public class ServerSpecificSkinsClient implements ClientModInitializer {
 
     public static void saveSkinForServer(ServerInfo server, File skin) throws IOException {
         if (skin.isFile()){
-            var new_file = ServerSpecificSkinsClient.getFileForAddress(server.address);
+            var new_file = ServerSpecificSkinsClient.getFileForServer(server);
             var dir = new_file.getParentFile();
             if (!dir.isDirectory()){if (!dir.mkdirs()){throw new IOException("Could not create directory for skin files.");}}
             Files.copy(skin.toPath(),new_file.toPath(), StandardCopyOption.REPLACE_EXISTING);
         }
     }
 
-    public static void saveSkinForServer(ServerAddress server, byte[] skin_data) throws IOException {
-        var new_file = ServerSpecificSkinsClient.getFileForAddress(server);
+    public static void saveSkinForServer(ServerInfo server, byte[] skin_data) throws IOException {
+        var new_file = ServerSpecificSkinsClient.getFileForServer(server);
         var dir = new_file.getParentFile();
         if (!dir.isDirectory()){if (!dir.mkdirs()){throw new IOException("Could not create directory for skin files.");}}
         Files.write(new_file.toPath(), skin_data);
     }
 
     public static void deleteSkinForServer(ServerInfo server) {
-        var new_file = ServerSpecificSkinsClient.getFileForAddress(server.address);
+        var new_file = ServerSpecificSkinsClient.getFileForServer(server);
         if (new_file.isFile()) {
             new_file.delete();
         }
     }
 
-    public static File getFileForAddress(ServerAddress address){
-        return getFileForAddress(address.getAddress()+":"+ address.getPort());
-    }
-    public static File getFileForAddress(String address){
-        String fixed_address;
-        if (address.contains(":")){
-            fixed_address = address.replace(':', '_');
-        } else {
-            fixed_address = address + "_25565";
-        }
+    public static File getFileForServer(ServerInfo server){
+        String fixed_address = ServerAddressUtilities.hashServerAddress(server);
         return FabricLoader.getInstance().getConfigDir().resolve("server_specific_skins/"+fixed_address+".png").toFile();
     }
 }

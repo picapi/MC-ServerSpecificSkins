@@ -6,8 +6,8 @@
   "mixins": [
   ],
   "client": [
+    "ConnectScreenInvoker",
     "MultiplayerJoinMixin",
-    "MultiplayerJoinMixin$ConnectScreenInvoker",
     "ServerListRemoveMixin",
     "ServerSettingsScreenMixin"
   ],

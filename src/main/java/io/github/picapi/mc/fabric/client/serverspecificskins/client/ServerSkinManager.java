@@ -18,10 +18,25 @@ public class ServerSkinManager {
     File selectedSkin;
     Boolean clearSkinForServer;
 
+    Boolean setSkinForServer = false;
+
     ButtonWidget.Builder clearSkinBuilder;
     ButtonWidget.Builder setSkinBuilder;
     ArrayList<ButtonWidget> activeClearButtons = new ArrayList<>();
     CyclingButtonWidget.Builder<ServerSkinSettingType> skinTypeBuilder;
+
+    ServerInfo previous_info = null;
+
+    public void set_previous_info(ServerInfo value){
+        previous_info = value;
+    }
+
+    public ServerInfo get_previous_info(){
+        return previous_info;
+    }
+    public void clear_previous_info(){
+        previous_info = null;
+    }
 
     public ServerSkinManager(ServerInfo server){
         ConfigManager.Config config = ConfigManager.getConfig();
@@ -29,8 +44,9 @@ public class ServerSkinManager {
         clearSkinBuilder = ButtonWidget.builder(Text.translatable("serverspecificskins.addServer.skinConfig.clearSkin"),new ClearSkinPressAction());
         skinTypeBuilder = CyclingButtonWidget.builder(ServerSkinSettingType::getText)
                 .values(ServerSkinSettingType.values())
-                .initially(config.getSkinTypeForAddress(ServerAddressUtilities.stringify(server)));
+                .initially(config.getSkinTypeForServer(server));
         clearSkinForServer = false;
+        selectedSkin = ServerSpecificSkinsClient.getFileForServer(server);
     }
 
     public ButtonWidget buildSetSkinButton(int x,int y, int width, int height){
@@ -51,6 +67,14 @@ public class ServerSkinManager {
         return clearSkinForServer;
     }
 
+    public boolean shouldSetSkin(){
+        return setSkinForServer;
+    }
+
+    public void requestSetSkinForServer(){
+        setSkinForServer = true;
+    }
+
     public File getSelectedSkin(){
         return selectedSkin;
     }
@@ -67,6 +91,7 @@ public class ServerSkinManager {
                 selectedSkin = ServerSpecificSkinsClient.selectSkin();
                 if(selectedSkin != null) {
                     clearSkinForServer = false;
+                    setSkinForServer = true;
                 }
                 for (ButtonWidget button : activeClearButtons) {
                     button.active = true;
@@ -81,6 +106,7 @@ public class ServerSkinManager {
 
         public void onPress(ButtonWidget b){
             clearSkinForServer = true;
+            setSkinForServer = false;
             for (ButtonWidget button : activeClearButtons) {
                 button.active = false;
             }
