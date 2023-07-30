@@ -1,5 +1,6 @@
 package io.github.picapi.mc.fabric.client.serverspecificskins.client;
 
+import io.github.picapi.mc.fabric.client.serverspecificskins.ConfigManager;
 import io.github.picapi.mc.fabric.client.serverspecificskins.ServerAddressUtilities;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -61,11 +62,14 @@ public class ServerSpecificSkinsClient implements ClientModInitializer {
         Files.write(new_file.toPath(), skin_data);
     }
 
-    public static void deleteSkinForServer(ServerInfo server) {
+    public static void deleteSkinForServer(ServerInfo server) throws IOException {
         var new_file = ServerSpecificSkinsClient.getFileForServer(server);
         if (new_file.isFile()) {
-            new_file.delete();
+            if (!new_file.delete()){throw new IOException();}
         }
+        ConfigManager.Config config = ConfigManager.getConfig();
+        config.removeServerFromConfig(server);
+        ConfigManager.saveConfig(config);
     }
 
     public static File getFileForServer(ServerInfo server){

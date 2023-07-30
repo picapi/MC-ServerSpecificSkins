@@ -42,6 +42,13 @@ public class ConfigManager {
         public void setSkinTypeForServer(ServerInfo address, ServerSkinSettingType type){
             setSkinTypeForHash(ServerAddressUtilities.hashServerAddress(address), type);
         }
+
+        public void removeServerFromConfig(ServerInfo address){
+            removeHashFromConfig(ServerAddressUtilities.hashServerAddress(address));
+        }
+        public void removeHashFromConfig(String hash){
+            skin_type.remove(hash);
+        }
     }
 
     public static final Path defaultConfigPath = FabricLoader.getInstance().getConfigDir().resolve("server_specific_skins/config.json");

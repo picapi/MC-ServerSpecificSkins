@@ -28,7 +28,7 @@ public class ServerSkinManager {
     ServerInfo previous_info = null;
 
     public void set_previous_info(ServerInfo value){
-        previous_info = value;
+        previous_info = new ServerInfo(value.name, value.address, value.isLocal());
     }
 
     public ServerInfo get_previous_info(){

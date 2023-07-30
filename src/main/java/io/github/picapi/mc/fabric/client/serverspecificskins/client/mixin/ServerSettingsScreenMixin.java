@@ -21,6 +21,7 @@ import net.minecraft.client.gui.screen.AddServerScreen;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Mixin(AddServerScreen.class)
 public class ServerSettingsScreenMixin extends Screen {
@@ -50,9 +51,10 @@ public class ServerSettingsScreenMixin extends Screen {
         this.addDrawableChild(skinTypeButton);
     }
     @Inject(at = @At("HEAD"), method = "addAndClose")
-        private void check_if_info_changed(CallbackInfo info) throws IOException {
-        if (this.server.address != this.addressField.getText() || this.server.name != this.serverNameField.getText()) {
+        private void check_if_info_changed(CallbackInfo info) {
+        if ((!Objects.equals(this.server.address, this.addressField.getText()) || !Objects.equals(this.server.name, this.serverNameField.getText()))) {
             manager.set_previous_info(this.server);
+            manager.requestSetSkinForServer();
         }
     }
     @Inject(at = @At("TAIL"), method = "addAndClose")
@@ -64,6 +66,7 @@ public class ServerSettingsScreenMixin extends Screen {
             ServerSpecificSkinsClient.deleteSkinForServer(this.server);
         }
         if(manager.get_previous_info() != null){
+            System.out.println(manager.get_previous_info().toString());
             ServerSpecificSkinsClient.deleteSkinForServer(manager.get_previous_info());
             manager.clear_previous_info();
         }
