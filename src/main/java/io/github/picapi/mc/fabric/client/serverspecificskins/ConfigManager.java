@@ -31,11 +31,7 @@ public class ConfigManager {
             return skin_type.getOrDefault(hash,ServerSkinSettingType.CLASSIC);
         }
 
-        public ServerSkinSettingType getSkinTypeForAddress(ServerAddress address){
-            return getSkinTypeForHash(ServerAddressUtilities.hashServerAddress(address));
-        }
-
-        public ServerSkinSettingType getSkinTypeForAddress(ServerInfo address){
+        public ServerSkinSettingType getSkinTypeForServer(ServerInfo address){
             return getSkinTypeForHash(ServerAddressUtilities.hashServerAddress(address));
         }
 
@@ -43,11 +39,7 @@ public class ConfigManager {
             skin_type.put(hash, type);
         }
 
-        public void setSkinTypeForAddress(ServerAddress address, ServerSkinSettingType type){
-            setSkinTypeForHash(ServerAddressUtilities.hashServerAddress(address), type);
-        }
-
-        public void setSkinTypeForAddress(ServerInfo address, ServerSkinSettingType type){
+        public void setSkinTypeForServer(ServerInfo address, ServerSkinSettingType type){
             setSkinTypeForHash(ServerAddressUtilities.hashServerAddress(address), type);
         }
     }
